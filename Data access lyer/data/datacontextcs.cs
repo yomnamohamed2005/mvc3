@@ -20,5 +20,12 @@ namespace Data_access_lyer.data
 
         }
         public DbSet<department> department { get; set; }
+        public DbSet<employee> employee { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<employee>()
+                .Property(e => e.salary)
+                .HasColumnType("decimal(18,2)");
+        }
     }
 }

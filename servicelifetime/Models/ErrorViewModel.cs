@@ -1,4 +1,4 @@
-namespace mvc3.Models
+namespace servicelifetime.Models
 {
     public class ErrorViewModel
     {

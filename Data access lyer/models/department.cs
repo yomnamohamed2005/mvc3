@@ -17,5 +17,6 @@ namespace Data_access_lyer.models
         public string name { get; set; }
         [Display(Name = "Create at")]
         public DateTime time { get; set; }
+        public ICollection<employee> employees { get; set; } = new List<employee>();
     }
 }

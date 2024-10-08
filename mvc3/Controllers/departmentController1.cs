@@ -2,20 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Data_access_lyer.models;
 using Microsoft.Identity.Client;
-
+using Business_acess_lyer.interfaces;
 namespace mvc3.Controllers
 {
     public class departmentController : Controller
     {
-        private readonly Idata_repositories datareposatory;
+        //private readonly IGenericRepositories<department> repo;
+        private readonly Idata_repositories repo;
         public departmentController(Idata_repositories _repo)
         {
-            datareposatory = _repo;
+            repo = _repo;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            var result = datareposatory.Getall();
+            var result = repo.Getall();
             return View(result);
         }
         public IActionResult Create()
@@ -28,51 +29,18 @@ namespace mvc3.Controllers
             if (!ModelState.IsValid) return View(department);
 
 
-            datareposatory.create(department);
+        repo.create(department);
             return RedirectToAction(nameof(Index));
 
 
         }
-        public IActionResult details(int? id)
-        {
-            if (id is null)
-            {
-                return BadRequest();
-            }
-            else
-            {
-                var department = datareposatory.Get(id.Value);
-                if (department is null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return View(department);
-                }
-            }
-        }
-        public IActionResult Edit(int? id)
-        {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            else
-            {
-                var department = datareposatory.Get(id.Value);
-                if (department is null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return View(department);
-                }
-            }
-        }
+        public IActionResult details(int? id) => departmentcontrollerhandler(id, nameof(details));
+
+        public IActionResult Edit(int? id) => departmentcontrollerhandler(id, nameof(Edit));
+
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit([FromRoute] int Id, department department)
         {
             if (Id != department.id) { return BadRequest(); }
@@ -84,7 +52,7 @@ namespace mvc3.Controllers
                     try
                     {
 
-                        datareposatory.update(department);
+                        repo.update(department);
                         return RedirectToAction(nameof(Index));
 
                     }
@@ -99,33 +67,16 @@ namespace mvc3.Controllers
             }
 
         }
-        public IActionResult Delete(int? id)
-        {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            else
-            {
-                var department = datareposatory.Get(id.Value);
-                if (department is null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return View(department);
-                }
-
-            }
-        }
+        public IActionResult Delete(int? id) => departmentcontrollerhandler(id, nameof(Delete));
+       
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult ConfirmDelete(int? id)
         {
 
             if (!id.HasValue) { return BadRequest(); }
-            var repo = datareposatory.Get(id.Value);
-            if (repo is null) { return NotFound(); }
+            var repo1 = repo.Get(id.Value);
+            if (repo1 is null) { return NotFound(); }
             else
             {
                 if (ModelState.IsValid)
@@ -133,7 +84,7 @@ namespace mvc3.Controllers
                     try
                     {
 
-                        datareposatory.delete(repo);
+                        repo.delete(repo1);
                         return RedirectToAction(nameof(Index));
 
                     }
@@ -146,6 +97,25 @@ namespace mvc3.Controllers
                 return View(repo);
             }
 
+        }
+        private IActionResult departmentcontrollerhandler(int? id ,string viewname)
+        {
+            if (!id.HasValue)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var department = repo.Get(id.Value);
+                if (department is null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(department);
+                }
+            }
         }
     }
 }

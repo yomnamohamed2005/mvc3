@@ -1,0 +1,17 @@
+﻿@using mvc3.viewmodels
+@model Employeeviewmodel
+@{
+    ViewData["Title"] = "Edit";
+}
+<h1> Edit @Model.name </h1>
+<form  method="post" asp-action="Edit">
+  
+    <partial name="\partialviews\createeditpartial.cshtml"></partial>
+    <div class="mt-3">
+        <button class="btn-success" type="submit"> Edit </button>
+        <a class=" btn btn-danger" asp-action="Index">cancel</a>
+
+    </div>
+</form>
+
+

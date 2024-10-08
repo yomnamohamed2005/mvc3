@@ -7,6 +7,7 @@
 <div>
     <a class=" btn btn-primary mt-3" asp-action="Create"> create new department </a>
 </div>
+
 @if(Model.Any()){
 
     <h1>All department</h1>
@@ -16,6 +17,7 @@
             <td>@Html.DisplayNameFor(d=>d.code)</td>
             <td>@Html.DisplayNameFor(d=>d.name)</td>
             <td>@Html.DisplayNameFor(d=>d.time)</td>
+
             <td>details</td>
             <td>Edit</td>
             <td>Delete</td>
@@ -28,9 +30,7 @@
                 <td>@item.code</td>
                 <td>@item.name</td>
                 <td>@item.time</td>
-                <td><a asp-action="details" class=" btn btn-warning" asp-route-id="@item.id"><i class="fas fa-eye"></i>details </a></td>
-                <td><a asp-action="Edit" class=" btn btn-success" asp-route-id="@item.id"><i class="fas fa-edit"></i>Edit </a></td>
-                 <td><a asp-action="Delete" class=" btn btn-success" asp-route-id="@item.id"><i class="fas fa-delete"></i>Delete </a></td>
+                    <partial name="_ButtonPartial" Model="@item.id">  </partial>
               
             </tr>
         }

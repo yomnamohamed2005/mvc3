@@ -1,0 +1,47 @@
+﻿@using mvc3.viewmodels
+@model Employeeviewmodel
+<div asp-validation-smmmary="All"></div>
+<div class="form-group">
+    <label asp-for="name"></label>
+    <input class="form-control" asp-for="name" />
+    <span asp-validation-for="name" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="age"></label>
+    <input class="form-control" asp-for="age" />
+    <span asp-validation-for="age" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="address"></label>
+    <input class="form-control" asp-for="address" />
+    <span asp-validation-for="address" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="department"></label>
+    <select class="form-control" asp-items="ViewBag.department" asp-for="departmentId">
+        <option value="@null" class="text-center">select department</option>
+    </select>
+ 
+    
+</div>
+<div class="form-group">
+    <label asp-for="salary"></label>
+    <input class="form-control" asp-for="salary" />
+    <span asp-validation-for="salary" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="phone"></label>
+    <input class="form-control" asp-for="phone" />
+    <span asp-validation-for="phone" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="email"></label>
+    <input class="form-control" asp-for="email" />
+    <span asp-validation-for="email" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="isactive"></label>
+    <input asp-for="isactive" />
+    <span asp-validation-for="isactive" class="text-danger"></span>
+</div>
+

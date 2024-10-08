@@ -44,6 +44,64 @@ namespace Data_access_lyer.Migrations
 
                     b.ToTable("department");
                 });
+
+            modelBuilder.Entity("Data_access_lyer.models.employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("age")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("departmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("departmentId");
+
+                    b.ToTable("employee");
+                });
+
+            modelBuilder.Entity("Data_access_lyer.models.employee", b =>
+                {
+                    b.HasOne("Data_access_lyer.models.department", "department")
+                        .WithMany("employees")
+                        .HasForeignKey("departmentId");
+
+                    b.Navigation("department");
+                });
+
+            modelBuilder.Entity("Data_access_lyer.models.department", b =>
+                {
+                    b.Navigation("employees");
+                });
 #pragma warning restore 612, 618
         }
     }
