@@ -24,5 +24,6 @@ namespace Data_access_lyer.models
         public bool isactive { get; set; }
         public department? department { get; set; }
         public int? departmentId { get; set; }
+        public string? imagename { get; set; }
     }
 }

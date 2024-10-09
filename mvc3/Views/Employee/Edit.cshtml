@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 <h1> Edit @Model.name </h1>
-<form  method="post" asp-action="Edit">
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
   
     <partial name="\partialviews\createeditpartial.cshtml"></partial>
     <div class="mt-3">

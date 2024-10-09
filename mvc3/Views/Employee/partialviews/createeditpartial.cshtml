@@ -1,6 +1,7 @@
 ﻿@using mvc3.viewmodels
 @model Employeeviewmodel
 <div asp-validation-smmmary="All"></div>
+<input hidden asp-for ="imagename" />
 <div class="form-group">
     <label asp-for="name"></label>
     <input class="form-control" asp-for="name" />
@@ -10,6 +11,11 @@
     <label asp-for="age"></label>
     <input class="form-control" asp-for="age" />
     <span asp-validation-for="age" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="image"></label>
+    <input class="form-control" asp-for="image" />
+    <span asp-validation-for="image" class="text-danger"></span>
 </div>
 <div class="form-group">
     <label asp-for="address"></label>

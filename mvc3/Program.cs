@@ -25,8 +25,9 @@ namespace mvc3
             }
             );
              builder.Services.AddAutoMapper(typeof(employeeprofile));
-            builder.Services.AddScoped<Idata_repositories, data_repositories>();
-            builder.Services.AddScoped<IEmployee_repositories, Employee_repositories>();
+           // builder.Services.AddScoped<Idata_repositories, data_repositories>();
+           // builder.Services.AddScoped<IEmployee_repositories, Employee_repositories>();
+            builder.Services.AddScoped<IUnitofwork, Unitofwork>();
             // builder.Services.AddScoped<IGenericRepositories<department>, GenericRepositories<department>>();
             var app = builder.Build();
             

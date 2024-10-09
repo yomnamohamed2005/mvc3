@@ -20,5 +20,7 @@ namespace mvc3.viewmodels
         public bool isactive { get; set; }
         public department? department { get; set; }
         public int? departmentId { get; set; }
+        public IFormFile? image { get; set; }
+        public string? imagename { get; set; }
     }
 }

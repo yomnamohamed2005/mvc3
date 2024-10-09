@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Business acess lyer\Business access lyer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\files\images\" />
+  </ItemGroup>
+
 </Project>

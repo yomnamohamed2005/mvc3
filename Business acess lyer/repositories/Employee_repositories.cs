@@ -13,9 +13,9 @@ namespace Business_acess_lyer.repositories
             
         }
 
-        public IEnumerable<employee> Getall(string address)
+        public IEnumerable<employee> Getall(string name)
         {
-           return _dbset.Where(e => e.address.ToLower().Contains(address.ToLower())).Include(e => e.department).ToList();
+           return _dbset.Where(e => e.name.ToLower().Contains(name.ToLower())).Include(e => e.department).ToList();
         }
        public IEnumerable<employee> getallwithdepartment()
         {

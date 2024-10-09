@@ -10,7 +10,7 @@ namespace mvc3.profiles
     {
         public employeeprofile()
         {
-            CreateMap<employee, employeeprofile>().ReverseMap();
+            CreateMap<employee, Employeeviewmodel>().ReverseMap();
         }
     }
 }

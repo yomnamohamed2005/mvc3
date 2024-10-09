@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoMapper;
 using mvc3.viewmodels;
 using System.Reflection;
+using mvc3.utilities;
 
 
 namespace mvc3.Controllers
@@ -29,7 +30,7 @@ namespace mvc3.Controllers
             if(string.IsNullOrEmpty(searchvalue))
              emp = _unitofwork.employees.getallwithdepartment();
             else
-                emp = _unitofwork.employees.Getall();
+                emp = _unitofwork.employees.Getall(searchvalue);
             var emp1 = _mapper.Map<IEnumerable<employee>,IEnumerable<Employeeviewmodel>>(emp);
             return View(emp1);
         }
@@ -45,7 +46,8 @@ namespace mvc3.Controllers
         public IActionResult Create(Employeeviewmodel employeevm)
         {
             if (!ModelState.IsValid) return View(employeevm);
-
+            if(employeevm.image is not null)
+            employeevm.imagename = documentsetting.updatefiles(employeevm.image, "images");
             var employee1 = _mapper.Map<Employeeviewmodel, employee>(employeevm);
             _unitofwork.employees.create(employee1);
             _unitofwork.SaveChanges();
@@ -65,6 +67,8 @@ namespace mvc3.Controllers
                 try
 
                 {
+                    if (employeevm.image is not null)
+                        employeevm.imagename = documentsetting.updatefiles(employeevm.image, "images");
                     var employee1 = _mapper.Map<Employeeviewmodel,employee>(employeevm);
                     _unitofwork.employees.update(employee1);
                     if (_unitofwork.SaveChanges()> 0)
@@ -95,7 +99,8 @@ namespace mvc3.Controllers
                     {
 
                         _unitofwork.employees.delete(repo1);
-                        _unitofwork.SaveChanges();
+                        if(_unitofwork.SaveChanges()>0&&repo1.imagename is not null)
+                           documentsetting.deletefiles("images" ,repo1.imagename);
                         return RedirectToAction(nameof(Index));
 
                     }
